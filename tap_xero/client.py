@@ -18,8 +18,10 @@ LOGGER = singer.get_logger()
 _XERO_API_URL_MAP = {
     "assets": "https://api.xero.com/assets.xro/1.0",
     "payroll": "https://api.xero.com/payroll.xro/1.0",
-    "accounting": "https://api.xero.com/api.xro/2.0"
+    "accounting": "https://api.xero.com/api.xro/2.0",
+    "bankfeeds": "https://api.xero.com/bankfeeds.xro/1.0"
 }
+
 
 class XeroError(Exception):
     def __init__(self, message=None, response=None):
@@ -228,7 +230,7 @@ class XeroClient():
         }
 
         # Validating the authorization of the provided configuration
-        currencies_url = join(BASE_URL, "Currencies")
+        currencies_url = join(_XERO_API_URL_MAP["accounting"], "Currencies")
         request = requests.Request("GET", currencies_url, headers=headers)
         response = self.session.send(request.prepare())
 
@@ -262,7 +264,7 @@ class XeroClient():
                                        object_hook=_json_load_object_hook,
                                        parse_float=decimal.Decimal)
             _xero_resource_name = xero_resource_name.split("/")[0]
-            response_body = response_meta.pop(_xero_resource_name if api_name != "assets" else "items")
+            response_body = response_meta.pop(_xero_resource_name if api_name not in ["assets", "bankfeeds"] else "items")
             return response_body
 
 

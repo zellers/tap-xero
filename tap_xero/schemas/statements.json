@@ -1,0 +1,46 @@
+{
+  "type": [
+    "null",
+    "object"
+  ],
+  "properties": {
+    "id": {"type": ["null", "string"]},
+    "feedConnectionId": {"type": ["null", "string"]},
+    "status": {"type": ["null", "string"]},
+    "startDate": {
+      "type": ["null", "string"],
+      "format": "date-time"
+    },
+    "endDate": {
+      "type": ["null", "string"],
+      "format": "date-time"
+    },
+    "startBalance": {
+      "type": ["null", "object"],
+      "properties": {
+        "amount": {"type": ["null", "string"]},
+        "creditDebitIndicator": {"type": ["null", "string"]}
+      }
+    },
+    "endBalance": {
+      "type": ["null", "object"],
+      "properties": {
+        "amount": {"type": ["null", "string"]},
+        "creditDebitIndicator": {"type": ["null", "string"]}
+      }
+    },
+    "statementLineCount": {"type": ["null", "string"]},
+    "errors": {
+      "type": ["null", "array"],
+      "items": {
+        "type": ["null", "object"],
+        "properties": {
+          "type": {"type": ["null", "string"]},
+          "title": {"type": ["null", "string"]},
+          "status": {"type": ["null", "integer"]},
+          "detail": {"type": ["null", "string"]}
+        }
+      }
+    }
+  }
+}

@@ -330,6 +330,30 @@ class LinkedTransactions(Stream):
         ctx.write_state()
 
 
+class Statements(Stream):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.bookmark_key = None
+        self.replication_method = "FULL_TABLE"
+
+    def sync(self, ctx):
+        offset = [self.tap_stream_id, "page"]
+        curr_page_num = ctx.get_offset(offset) or 1
+        while True:
+            ctx.set_offset(offset, curr_page_num)
+            ctx.write_state()
+            filter_options = {"page": curr_page_num, "PageSize": 100}
+            records = _make_request(ctx, self.tap_stream_id, self.api_name, filter_options)
+            # self.format_fn(records)
+            if records:
+                self.write_records(records, ctx)
+            if not records or len(records) < FULL_PAGE_SIZE:
+                break
+            curr_page_num += 1
+        ctx.clear_offsets(self.tap_stream_id)
+        ctx.write_state()
+
+
 class Everything(Stream):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -357,6 +381,11 @@ all_streams = [
     PaginatedStream("payments", ["PaymentID"], format_fn=transform.format_payments),
     PaginatedStream("prepayments", ["PrepaymentID"], format_fn=transform.format_over_pre_payments),
     PaginatedStream("purchase_orders", ["PurchaseOrderID"]),
+
+    # STATEMENTS STREAM
+    # These endpoints support pagination, and only support page and pageSize
+    # FullTable
+    Statements("statements", ["id"], api_name="bankfeeds"),
 
     # JOURNALS STREAM
     # This endpoint is paginated, but in its own special snowflake way.
