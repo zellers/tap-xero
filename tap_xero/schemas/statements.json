@@ -30,6 +30,26 @@
       }
     },
     "statementLineCount": {"type": ["null", "string"]},
+    "statementLines": {
+      "type": ["null", "array"],
+      "items": {
+        "type": ["null", "object"],
+        "properties": {
+          "PostedDate": {
+            "type": ["null", "string"],
+            "format": "date-time"
+          },
+          "Description": {"type": ["null", "string"]},
+          "Amount": {"type": ["null", "integer"]},
+          "CreditDebitIndicator": {"type": ["null", "string"]},
+          "TransactionId": {"type": ["null", "string"]},
+          "PayeeName": {"type": ["null", "string"]},
+          "Reference": {"type": ["null", "string"]},
+          "ChequeNumber": {"type": ["null", "string"]},
+          "TransactionType": {"type": ["null", "string"]}
+        }
+      }
+    },
     "errors": {
       "type": ["null", "array"],
       "items": {
