@@ -17,7 +17,7 @@ LOGGER = singer.get_logger()
 
 _XERO_API_URL_MAP = {
     "assets": "https://api.xero.com/assets.xro/1.0",
-    "payroll": "https://api.xero.com/payroll.xro/1.0",
+    "payroll": "https://api.xero.com/payroll.xro/2.0", # Payroll UK is 2.0 Australia is 1.0
     "accounting": "https://api.xero.com/api.xro/2.0",
     "bankfeeds": "https://api.xero.com/bankfeeds.xro/1.0"
 }
