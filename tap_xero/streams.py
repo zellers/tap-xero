@@ -395,7 +395,7 @@ all_streams = [
     # This endpoint supports pagination and sorting, but has additional filter_option
     Assets("assets", ["assetId"], bookmark_key="assetNumber", statuses=["DRAFT", "DISPOSED", "REGISTERED"], api_name="assets"),
     Reports("reports", ["ReportID"], report_types=["balance_sheet", "profit_and_loss"]),
-    PayrollEmployees("payroll_employees", ["EmployeeID"], api_name="payroll"),
+    # PayrollEmployees("payroll_employees", ["EmployeeID"], api_name="payroll"),
     Budgets("budgets", ["BudgetID"], api_name="accounting"),
     BASReports("bas_reports", ["ReportID"], api_name="accounting"),
 
