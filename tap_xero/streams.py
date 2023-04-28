@@ -402,7 +402,8 @@ all_streams = [
     Assets("assets", ["assetId"], bookmark_key="assetNumber", statuses=["DRAFT", "DISPOSED", "REGISTERED"], api_name="assets"),
     Reports("reports", ["ReportID"], report_types=["balance_sheet", "profit_and_loss"]),
     PayrollEmployees("payroll_employees", ["EmployeeID"], api_name="payroll"),
-    Budgets("budgets", ["BudgetID"], api_name="accounting"),
+    # TODO: uncomment when access is granted
+    # Budgets("budgets", ["BudgetID"], api_name="accounting"),
     BASReports("bas_reports", ["ReportID"], api_name="accounting"),
 
     # NON-PAGINATED STREAMS
@@ -426,7 +427,7 @@ all_streams = [
     Everything("repeating_invoices", ["RepeatingInvoiceID"]),
     Everything("tax_rates", ["TaxType"]),
     Everything("tracking_categories", ["TrackingCategoryID"]),
-    Everything("budgets", ["BudgetID"]),  # TODO: Perform nested querying to fill the budget lines attribute
+    # Everything("budgets", ["BudgetID"]),  # TODO: Perform nested querying to fill the budget lines attribute
 
     # LINKED TRANSACTIONS STREAM
     # This endpoint is not paginated, but can do some manual filtering
