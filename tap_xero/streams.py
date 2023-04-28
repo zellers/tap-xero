@@ -391,7 +391,7 @@ all_streams = [
     # STATEMENTS STREAM
     # These endpoints support pagination, and only support page and pageSize
     # FullTable
-    Statements("statements", ["id"], api_name="bankfeeds"),
+    # Statements("statements", ["id"], api_name="bankfeeds"),
 
     # JOURNALS STREAM
     # This endpoint is paginated, but in its own special snowflake way.
