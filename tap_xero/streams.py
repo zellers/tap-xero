@@ -403,7 +403,7 @@ all_streams = [
     Reports("reports", ["ReportID"], report_types=["balance_sheet", "profit_and_loss"]),
     PayrollEmployees("payroll_employees", ["EmployeeID"], api_name="payroll"),
     # TODO: uncomment when access is granted
-    # Budgets("budgets", ["BudgetID"], api_name="accounting"),
+    Budgets("budgets", ["BudgetID"], api_name="accounting"),
     BASReports("bas_reports", ["ReportID"], api_name="accounting"),
 
     # NON-PAGINATED STREAMS
