@@ -214,7 +214,8 @@ class XeroClient():
             # update_config_file(config, config_path)
             
         # DO NOTHING AND RETURN ACCESS TOKEN AS SUPPLIED IN CONFIG.
-            
+        LOGGER.info("refresh_credentials -> DO NOTHING AND RETURN ACCESS TOKEN AS SUPPLIED IN CONFIG.")
+    
         self.access_token = config['access_token']
         self.tenant_id = config['tenant_id']
 
@@ -224,14 +225,16 @@ class XeroClient():
     def check_platform_access(self, config, config_path):
 
         # Validating the authentication of the provided configuration
-        self.refresh_credentials(config, config_path)
+        # self.refresh_credentials(config, config_path)
+        LOGGER.info("Validating the authentication of the provided configuration")
+
 
         headers = {
             "Authorization": "Bearer " + self.access_token,
             "Xero-Tenant-Id": self.tenant_id,
             "Content-Type": "application/json"
         }
-
+        LOGGER.info("Headers: %s", headers)
         # Validating the authorization of the provided configuration
         currencies_url = join(_XERO_API_URL_MAP["accounting"], "Currencies")
         request = requests.Request("GET", currencies_url, headers=headers)
