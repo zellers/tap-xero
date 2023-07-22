@@ -2,10 +2,10 @@
 from setuptools import setup, find_packages
 
 setup(name="tap-xero",
-      version="2.2.3",
+      version="2.2.3.1",
       description="Singer.io tap for extracting data from the Xero API",
-      author="Stitch",
-      url="http://singer.io",
+      author="Stitch, Zellers fork",
+      url="https://github.com/zellers/tap-xero",
       classifiers=["Programming Language :: Python :: 3 :: Only"],
       py_modules=["tap_xero"],
       install_requires=[

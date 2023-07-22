@@ -17,7 +17,7 @@ LOGGER = singer.get_logger()
 
 _XERO_API_URL_MAP = {
     "assets": "https://api.xero.com/assets.xro/1.0",
-    "payroll": "https://api.xero.com/payroll.xro/2.0", # Payroll UK is 2.0 Australia is 1.0
+    "payroll": "https://api.xero.com/payroll.xro/1.0", # Payroll UK is 2.0 Australia is 1.0
     "accounting": "https://api.xero.com/api.xro/2.0",
     "bankfeeds": "https://api.xero.com/bankfeeds.xro/1.0"
 }
@@ -231,12 +231,14 @@ class XeroClient():
 
         headers = {
             "Authorization": "Bearer " + self.access_token,
-            "Xero-Tenant-Id": self.tenant_id,
+            "Xero-Tenant-Id": config['tenant_id'],
             "Content-Type": "application/json"
         }
         LOGGER.info("Headers: %s", headers)
         # Validating the authorization of the provided configuration
         currencies_url = join(_XERO_API_URL_MAP["accounting"], "Currencies")
+        LOGGER.info("URL: %s", currencies_url)
+
         request = requests.Request("GET", currencies_url, headers=headers)
         response = self.session.send(request.prepare())
 
