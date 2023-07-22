@@ -40,7 +40,6 @@ class XeroScenarioBase(unittest.TestCase):
         return "platform.xero"
 
     def get_credentials(self):
-        self._credentials["client_secret"] = os.getenv('TAP_XERO_CLIENT_SECRET')
         self._credentials["client_id"] = os.getenv('TAP_XERO_CLIENT_ID')
         self._credentials["access_token"] = os.getenv('TAP_XERO_ACCESS_TOKEN')
         return self._credentials

@@ -11,7 +11,6 @@ from .context import Context
 REQUIRED_CONFIG_KEYS = [
     "start_date",
     "client_id",
-    "client_secret",
     "tenant_id",
     "access_token",
 
