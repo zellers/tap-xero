@@ -187,33 +187,36 @@ class XeroClient():
         self.session = requests.Session()
         self.user_agent = config.get("user_agent")
         self.tenant_id = None
-        self.access_token = None
+        self.access_token = config['access_token']
 
     def refresh_credentials(self, config, config_path):
 
-        header_token = b64encode((config["client_id"] + ":" + config["client_secret"]).encode('utf-8'))
+        # header_token = b64encode((config["client_id"] + ":" + config["client_secret"]).encode('utf-8'))
 
-        headers = {
-            "Authorization": "Basic " + header_token.decode('utf-8'),
-            "Content-Type": "application/x-www-form-urlencoded"
-        }
+        # headers = {
+        #     "Authorization": "Basic " + header_token.decode('utf-8'),
+        #     "Content-Type": "application/x-www-form-urlencoded"
+        # }
 
-        post_body = {
-            "grant_type": "refresh_token",
-            "refresh_token": config["refresh_token"],
-        }
-        resp = self.session.post("https://identity.xero.com/connect/token", headers=headers, data=post_body)
+        # post_body = {
+        #     "grant_type": "refresh_token",
+        #     "refresh_token": config["refresh_token"],
+        # }
+        # resp = self.session.post("https://identity.xero.com/connect/token", headers=headers, data=post_body)
 
-        if resp.status_code != 200:
-            raise_for_error(resp)
-        else:
-            resp = resp.json()
+        # if resp.status_code != 200:
+        #     raise_for_error(resp)
+        # else:
+        #     resp = resp.json()
 
             # Write to config file
-            config['refresh_token'] = resp["refresh_token"]
-            update_config_file(config, config_path)
-            self.access_token = resp["access_token"]
-            self.tenant_id = config['tenant_id']
+            # config['refresh_token'] = resp["refresh_token"]
+            # update_config_file(config, config_path)
+            
+        # DO NOTHING AND RETURN ACCESS TOKEN AS SUPPLIED IN CONFIG.
+            
+        self.access_token = config['access_token']
+        self.tenant_id = config['tenant_id']
 
 
     @backoff.on_exception(backoff.expo, (json.decoder.JSONDecodeError, XeroInternalError), max_tries=3)

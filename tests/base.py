@@ -7,12 +7,12 @@ import tap_tester.connections as connections
 import tap_tester.menagerie as menagerie
 
 
-def preserve_refresh_token(existing_conns, payload):
-    if not existing_conns:
-        return payload
-    conn_with_creds = connections.fetch_existing_connection_with_creds(existing_conns[0]['id'])
-    payload['properties']['refresh_token'] = conn_with_creds['credentials']['refresh_token']
-    return payload
+# def preserve_refresh_token(existing_conns, payload):
+#     if not existing_conns:
+#         return payload
+#     conn_with_creds = connections.fetch_existing_connection_with_creds(existing_conns[0]['id'])
+#     payload['properties']['refresh_token'] = conn_with_creds['credentials']['refresh_token']
+#     return payload
 
 class XeroScenarioBase(unittest.TestCase):
     start_dt = datetime(2001, 1, 1, tzinfo=timezone.utc)
@@ -22,7 +22,7 @@ class XeroScenarioBase(unittest.TestCase):
         required_creds = {
             "client_id": 'TAP_XERO_CLIENT_ID',
             "client_secret": 'TAP_XERO_CLIENT_SECRET',
-            "refresh_token": 'TAP_XERO_REFRESH_TOKEN',
+            "access_token": 'TAP_XERO_ACCESS_TOKEN',
         }
         required_props = {
             "tenant_id": 'TAP_XERO_TENANT_ID',
@@ -34,7 +34,7 @@ class XeroScenarioBase(unittest.TestCase):
             missing_envs = missing_creds + missing_props
             raise Exception("set " + ", ".join(missing_envs))
         self._credentials = {k: os.getenv(v) for k, v in required_creds.items()}
-        self.conn_id = connections.ensure_connection(self, payload_hook=preserve_refresh_token)
+        self.conn_id = connections.ensure_connection(self)
 
     def get_type(self):
         return "platform.xero"
@@ -42,8 +42,7 @@ class XeroScenarioBase(unittest.TestCase):
     def get_credentials(self):
         self._credentials["client_secret"] = os.getenv('TAP_XERO_CLIENT_SECRET')
         self._credentials["client_id"] = os.getenv('TAP_XERO_CLIENT_ID')
-        self._credentials["refresh_token"] = os.getenv('TAP_XERO_REFRESH_TOKEN')
-        self._credentials["access_token"] = "access_token"
+        self._credentials["access_token"] = os.getenv('TAP_XERO_ACCESS_TOKEN')
         return self._credentials
 
     @property
